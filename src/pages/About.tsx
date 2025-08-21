@@ -57,7 +57,7 @@ const About = () => {
             </h1>
             <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
               Driven by innovation and committed to excellence, we transform businesses 
-              through cutting-edge technology solutions.
+              through cutting edge technology solutions.
             </p>
           </div>
         </div>
