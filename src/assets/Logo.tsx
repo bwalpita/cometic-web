@@ -11,7 +11,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", width = 32, height = 32 }) 
     <svg
       width={width}
       height={height}
-      viewBox="0 0 120 40"
+      viewBox="0 0 80 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -43,30 +43,6 @@ const Logo: React.FC<LogoProps> = ({ className = "", width = 32, height = 32 }) 
         strokeWidth="2.5"
         strokeLinecap="round"
       />
-      
-      {/* Text: Cometic */}
-      <text
-        x="50"
-        y="18"
-        fontFamily="Arial, sans-serif"
-        fontSize="16"
-        fontWeight="bold"
-        fill="#DC2626"
-      >
-        Cometic
-      </text>
-      
-      {/* Text: IT care */}
-      <text
-        x="52"
-        y="32"
-        fontFamily="Arial, sans-serif"
-        fontSize="12"
-        fontWeight="normal"
-        fill="#1E40AF"
-      >
-        IT care
-      </text>
     </svg>
   );
 };

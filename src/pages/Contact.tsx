@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle, Shield } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,8 +10,10 @@ const Contact = () => {
     service: '',
     message: ''
   });
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const services = [
     'AI Solutions',
@@ -23,38 +25,101 @@ const Contact = () => {
     'Other'
   ];
 
+  const validateForm = () => {
+    const newErrors: {[key: string]: string} = {};
+    
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+    
+    // Phone validation (optional but if provided, must be valid)
+    if (formData.phone.trim() && !/^[\+]?[0-9\s\-\(\)]{7,}$/.test(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     
-    // Simulate form submission
+    if (!validateForm()) {
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        service: '',
-        message: ''
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setSubmitStatus('success');
+        setSubmitMessage(data.message);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          service: '',
+          message: ''
+        });
+      } else {
+        setSubmitStatus('error');
+        setSubmitMessage(data.error || 'Failed to send message. Please try again.');
+      }
     } catch (error) {
       setSubmitStatus('error');
+      setSubmitMessage('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
 
-    // Reset status after 5 seconds
-    setTimeout(() => setSubmitStatus('idle'), 5000);
+    // Reset status after 8 seconds
+    setTimeout(() => {
+      setSubmitStatus('idle');
+      setSubmitMessage('');
+    }, 8000);
   };
 
   const contactInfo = [
@@ -73,7 +138,8 @@ const Contact = () => {
     {
       icon: MapPin,
       title: 'Location',
-      details: 'Current Address: 309-B, Kapuwagara Road, Batagama South, Kandana, Sri Lanka. Old Address: 96-A, Kalaeliya Road, Ja-ela, Sri Lanka.',
+      details: '309-B, Kapuwagara Road, Batagama South, Kandana, Sri Lanka.',
+      details2: 'Old Address: 96-A, Kalaeliya Road, Ja-ela, Sri Lanka.',
       subtitle: 'Serving clients worldwide'
     },
     {
@@ -122,7 +188,7 @@ const Contact = () => {
                   <div className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
                     <p className="text-green-800 font-medium">
-                      Thank you! Your message has been sent successfully. We'll be in touch soon.
+                      {submitMessage || 'Thank you! Your message has been sent successfully. We\'ll be in touch soon.'}
                     </p>
                   </div>
                 </div>
@@ -133,7 +199,7 @@ const Contact = () => {
                   <div className="flex items-center">
                     <AlertCircle className="w-5 h-5 text-red-600 mr-2" />
                     <p className="text-red-800 font-medium">
-                      Sorry, there was an error sending your message. Please try again.
+                      {submitMessage || 'Sorry, there was an error sending your message. Please try again.'}
                     </p>
                   </div>
                 </div>
@@ -152,9 +218,17 @@ const Contact = () => {
                       required
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
+                        errors.name ? 'border-red-300 focus:border-red-500' : 'border-gray-300'
+                      }`}
                       placeholder="Your full name"
                     />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-600 flex items-center">
+                        <AlertCircle className="w-4 h-4 mr-1" />
+                        {errors.name}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -167,9 +241,17 @@ const Contact = () => {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
+                        errors.email ? 'border-red-300 focus:border-red-500' : 'border-gray-300'
+                      }`}
                       placeholder="your.email@company.com"
                     />
+                    {errors.email && (
+                      <p className="mt-1 text-sm text-red-600 flex items-center">
+                        <AlertCircle className="w-4 h-4 mr-1" />
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -184,9 +266,17 @@ const Contact = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
+                        errors.phone ? 'border-red-300 focus:border-red-500' : 'border-gray-300'
+                      }`}
                       placeholder="+1 (555) 123-4567"
                     />
+                    {errors.phone && (
+                      <p className="mt-1 text-sm text-red-600 flex items-center">
+                        <AlertCircle className="w-4 h-4 mr-1" />
+                        {errors.phone}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
@@ -235,9 +325,17 @@ const Contact = () => {
                     rows={6}
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none ${
+                      errors.message ? 'border-red-300 focus:border-red-500' : 'border-gray-300'
+                    }`}
                     placeholder="Please describe your project requirements, timeline, and any specific challenges you're facing..."
                   />
+                  {errors.message && (
+                    <p className="mt-1 text-sm text-red-600 flex items-center">
+                      <AlertCircle className="w-4 h-4 mr-1" />
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
 
                 <button
@@ -257,6 +355,11 @@ const Contact = () => {
                     </>
                   )}
                 </button>
+                
+                <div className="text-center text-sm text-gray-500 mt-4 flex items-center justify-center">
+                  <Shield className="w-4 h-4 mr-2" />
+                  Protected by spam filtering and validation
+                </div>
               </form>
             </div>
 
@@ -287,6 +390,9 @@ const Contact = () => {
                       </h3>
                       <p className="text-blue-600 font-medium mb-1">
                         {info.details}
+                      </p>
+                      <p className="text-blue-600 font-medium mb-1">
+                        {info.details2}
                       </p>
                       <p className="text-gray-600 text-sm">
                         {info.subtitle}

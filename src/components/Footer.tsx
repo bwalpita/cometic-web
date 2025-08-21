@@ -1,6 +1,7 @@
-import React from 'react';
+import { } from 'react';
 import { Link } from 'react-router-dom';
 import { Zap, Mail, Phone, MapPin, Linkedin, Facebook, Twitter } from 'lucide-react';
+import LogoIcon from '../assets/Reg-Cometic-It-Care-Logo.svg';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,21 +13,21 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2 text-2xl font-bold">
-              <Zap className="w-8 h-8 text-blue-400" />
-              <span>Cometic IT Care</span>
+              <img src={LogoIcon} alt="Cometic IT Care Logo" className="w-14 h-14" />
+              <span className="text-white">Cometic IT Care</span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Empowering Your Business with Cutting-Edge IT Solutions. We specialize in AI services, 
               software development, networking, and comprehensive technology consulting.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+              <a href="#" className="text-gray-300 hover:text-red-500 transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+              <a href="#" className="text-gray-300 hover:text-sky-400 transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors">
+              <a href="#" className="text-gray-300 hover:text-blue-600 transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
             </div>
@@ -34,43 +35,43 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4 text-red-500">Quick Links</h3>
             <ul className="space-y-2">
-              <li><Link to="/" className="text-gray-300 hover:text-blue-400 transition-colors">Home</Link></li>
-              <li><Link to="/about" className="text-gray-300 hover:text-blue-400 transition-colors">About Us</Link></li>
-              <li><Link to="/services" className="text-gray-300 hover:text-blue-400 transition-colors">Services</Link></li>
-              <li><Link to="/portfolio" className="text-gray-300 hover:text-blue-400 transition-colors">Portfolio</Link></li>
-              <li><Link to="/contact" className="text-gray-300 hover:text-blue-400 transition-colors">Contact Us</Link></li>
+              <li><Link to="/" className="text-gray-300 hover:text-red-500 transition-colors">Home</Link></li>
+              <li><Link to="/about" className="text-gray-300 hover:text-red-500 transition-colors">About Us</Link></li>
+              <li><Link to="/services" className="text-gray-300 hover:text-red-500 transition-colors">Services</Link></li>
+              <li><Link to="/portfolio" className="text-gray-300 hover:text-red-500 transition-colors">Portfolio</Link></li>
+              <li><Link to="/contact" className="text-gray-300 hover:text-red-500 transition-colors">Contact Us</Link></li>
             </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Our Services</h3>
+            <h3 className="text-lg font-semibold mb-4 text-sky-400">Our Services</h3>
             <ul className="space-y-2 text-sm">
-              <li className="text-gray-300">AI Solutions</li>
-              <li className="text-gray-300">Software Development</li>
-              <li className="text-gray-300">Networking Solutions</li>
-              <li className="text-gray-300">Data Management</li>
-              <li className="text-gray-300">Project Management</li>
-              <li className="text-gray-300">Cloud Services</li>
+              <li className="text-gray-300 hover:text-sky-400 transition-colors cursor-pointer">AI Solutions</li>
+              <li className="text-gray-300 hover:text-sky-400 transition-colors cursor-pointer">Software Development</li>
+              <li className="text-gray-300 hover:text-sky-400 transition-colors cursor-pointer">Networking Solutions</li>
+              <li className="text-gray-300 hover:text-sky-400 transition-colors cursor-pointer">Data Management</li>
+              <li className="text-gray-300 hover:text-sky-400 transition-colors cursor-pointer">Project Management</li>
+              <li className="text-gray-300 hover:text-sky-400 transition-colors cursor-pointer">Cloud Services</li>
             </ul>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
+            <h3 className="text-lg font-semibold mb-4 text-blue-600">Contact Info</h3>
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-3">
-                <Mail className="w-4 h-4 text-blue-400" />
+                <Mail className="w-4 h-4 text-red-500" />
                 <span className="text-gray-300">info@cometicare.com</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-blue-400" />
+                <Phone className="w-4 h-4 text-sky-400" />
                 <span className="text-gray-300">+94 (113) 123-737 | +94 (773) 077-759</span>
               </div>
               <div className="flex items-center space-x-3">
-                <MapPin className="w-4 h-4 text-blue-400" />
+                <MapPin className="w-4 h-4 text-blue-600" />
                 <span className="text-gray-300">Professional IT Services Worldwide</span>
               </div>
             </div>
@@ -82,8 +83,8 @@ const Footer = () => {
             © {currentYear} Cometic IT Care. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors text-sm">Privacy Policy</a>
-            <a href="#" className="text-gray-300 hover:text-blue-400 transition-colors text-sm">Terms of Service</a>
+            <a href="#" className="text-gray-300 hover:text-red-500 transition-colors text-sm">Privacy Policy</a>
+            <a href="#" className="text-gray-300 hover:text-sky-400 transition-colors text-sm">Terms of Service</a>
           </div>
         </div>
       </div>
