@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import Logo from '../assets/Logo';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,8 +37,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
-            <Zap className="w-8 h-8" />
-            <span>Cometic IT Care</span>
+            <Logo width={40} height={40} />
           </Link>
 
           {/* Desktop Navigation */}

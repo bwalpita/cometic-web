@@ -61,26 +61,26 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email Us',
-      details: 'info@cometicare.com',
+      details: 'info@cometicare.com | cometicare@gmail.com',
       subtitle: 'Get in touch via email'
     },
     {
       icon: Phone,
       title: 'Call Us',
-      details: '+1 (555) 123-4567',
+      details: '+94 (113) 123-737 | +94 (773) 077-759',
       subtitle: 'Speak with our team'
     },
     {
       icon: MapPin,
       title: 'Location',
-      details: 'Global IT Services',
+      details: 'Current Address: 309-B, Kapuwagara Road, Batagama South, Kandana, Sri Lanka. Old Address: 96-A, Kalaeliya Road, Ja-ela, Sri Lanka.',
       subtitle: 'Serving clients worldwide'
     },
     {
       icon: Clock,
       title: 'Business Hours',
       details: 'Mon - Fri: 9AM - 6PM',
-      subtitle: '24/7 Emergency Support'
+      subtitle: 'Fast Support'
     }
   ];
 
