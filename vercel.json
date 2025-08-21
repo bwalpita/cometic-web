@@ -3,9 +3,5 @@
     "api/contact.js": {
       "maxDuration": 30
     }
-  },
-  "env": {
-    "GMAIL_USER": "cometicare@gmail.com",
-    "GMAIL_APP_PASSWORD": "@gmail_app_password"
   }
 }
