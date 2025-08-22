@@ -24,7 +24,7 @@ const Footer = () => {
               <a href="#" className="text-gray-300 hover:text-red-500 transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-300 hover:text-sky-400 transition-colors">
+              <a href="https://www.facebook.com/cometicitcare" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-sky-400 transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
               <a href="#" className="text-gray-300 hover:text-blue-600 transition-colors">
@@ -83,8 +83,8 @@ const Footer = () => {
             © {currentYear} Cometic IT Care. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="text-gray-300 hover:text-red-500 transition-colors text-sm">Privacy Policy</a>
-            <a href="#" className="text-gray-300 hover:text-sky-400 transition-colors text-sm">Terms of Service</a>
+            <Link to="/privacy-policy" className="text-gray-300 hover:text-red-500 transition-colors text-sm">Privacy Policy</Link>
+            <Link to="/terms-and-conditions" className="text-gray-300 hover:text-sky-400 transition-colors text-sm">Terms of Service</Link>
           </div>
         </div>
       </div>
