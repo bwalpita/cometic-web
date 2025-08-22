@@ -49,8 +49,8 @@ const Home = () => {
   ];
 
   const stats = [
-    { number: '50+', label: 'Projects Completed' },
-    { number: '3+', label: 'Years Experience' },
+    { number: '75+', label: 'Projects Completed' },
+    { number: '10+', label: 'Years Experience' },
     { number: '100%', label: 'Client Satisfaction' },
     { number: '24/7', label: 'Support Available' }
   ];

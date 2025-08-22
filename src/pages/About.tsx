@@ -125,7 +125,7 @@ const About = () => {
                   <GraduationCap className="w-12 h-12 text-blue-600" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  Buddika Srimal Walpita
+                  Buddika Walpita
                 </h3>
                 <p className="text-lg text-blue-600 mb-4">Founder & Lead Technology Architect</p>
                 <p className="text-gray-600 mb-6">
@@ -146,7 +146,7 @@ const About = () => {
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-4">Industry Experience</h4>
                   <ul className="space-y-2 text-gray-600">
-                    <li>• 3+ years of professional IT consulting</li>
+                    <li>• 10+ years of professional IT consulting</li>
                     <li>• Successfully delivered 50+ projects</li>
                     <li>• Expertise in enterprise-level implementations</li>
                     <li>• Proven track record with major clients</li>
